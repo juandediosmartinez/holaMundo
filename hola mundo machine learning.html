@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hola Mundo Machine Learning</title>
+	<style type="text/css">
+		#cuadro {
+			padding: 2rem;
+			font-size: 4rem;
+			margin-left: 15rem;
+		}
+	</style>
+    <style type="text/css">
+		#cuadro2 {
+			padding: 2rem;
+			font-size: 1rem;
+			margin-left: 15rem;
+		}
+	</style>
+</head>
+<body>
+  
+    
+	<div id="cuadro">
+		Hola Mundo Machine Learning
+    </div>
+
+    <div id="cuadro2">    
+    <p>Vamos a sumar dos números menores que 10:</p>  
+    <input id="numero1"><br>  
+    <input id="numero2">  
+    <button type="button" onclick="miFuncionSuma()">Sumar</button> 
+    <p id="resultado"></p>    
+	</div>
+  
+    
+    <script src="https://unpkg.com/brain.js"></script>
+    
+    <script type="text/javascript">
+
+ 
+    function miFuncionSuma() 
+    {  
+        var x,y,suma,text;  
+        x = document.getElementById("numero1").value;  
+        y = document.getElementById("numero2").value;  
+        if (isNaN(x) || isNaN(y)) 
+        {  
+            text = "Es necesarios introducir dos números válidos";  
+        } 
+        else 
+        { 
+
+            if (x > 9 || y > 9)
+            {
+                text = "Los números deben de ser menores que 10";
+            }
+            else
+            {
+        
+                suma=sumaMachineLearning(x,y)
+                text= suma;
+            }
+        }  
+        document.getElementById("resultado").innerHTML = text;  
+    }  
+
+
+    function sumaMachineLearning(x,y)
+    {
+
+        //Inicializar red neuronal
+		var redneuronal = new brain.NeuralNetwork();
+
+        // Entrenar la red neuronal
+    
+        redneuronal.train
+            ([
+			
+			    {input: {cifra1: .1, cifra2: 0}, output: {suma: .1}},
+			
+			    {input: {cifra1: .2, cifra2: .1, }, output: {suma: .3}},
+		
+			    {input: {cifra1: .1, cifra2: .4}, output: {suma: .5}},
+                {input: {cifra1: .6, cifra2: .1}, output: {suma: .7}},
+                {input: {cifra1: .4, cifra2: .4}, output: {suma: .8}},
+               
+		    ]);
+
+        console.log(x);
+        console.log(y);
+
+        e1 = x/10;
+        e2 = y/10;
+
+        console.log(e1);
+        console.log(e2);
+        
+       
+        var entrada = 
+        {
+				cifra1: e1,
+				cifra2: e2,
+		};
+
+			//Obtener la prediccion de la red
+		var r = redneuronal.run(entrada);
+        
+        console.log(r);
+        
+        // redondear el resultado
+        resultado = Math.round(r.suma*10);
+            
+		console.log(resultado);
+            
+        salida = resultado;
+        return salida;
+    }
+ 
+    </script>
+	
+    
+	
+</body>
+</html>
